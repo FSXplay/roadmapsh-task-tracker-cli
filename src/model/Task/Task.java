@@ -18,6 +18,10 @@ public class Task {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public void updateTime() {
+        this.updatedAt = LocalDateTime.now();
+    }
+
     @Override
     public String toString() {
         // Creating a formatter for a cleaner look (e.g., 2026-02-04 23:15)

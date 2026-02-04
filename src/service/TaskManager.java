@@ -17,7 +17,8 @@ public class TaskManager {
 
     public void updateTask(int id, String newDescription) {
         Task selectedTask = taskMap.get(id);
-        selectedTask.description = newDescription;   
+        selectedTask.description = newDescription;
+        selectedTask.updateTime();
     }
 
     public void deleteTask(int id) {
@@ -27,11 +28,13 @@ public class TaskManager {
     public void markInProgress(int id) {
         Task selectedTask = taskMap.get(id);
         selectedTask.status = Status.IN_PROGRESS;
+        selectedTask.updateTime();
     }
 
     public void markDone(int id) {
         Task selectedTask = taskMap.get(id);
         selectedTask.status = Status.DONE;
+        selectedTask.updateTime();
     }
 
     public void listAll() {

@@ -8,10 +8,10 @@ public class Task {
     public LocalDateTime createdAt;
     public LocalDateTime updatedAt;
 
-    public Task(int _id, String _description, Status _status, LocalDateTime _createdAt, LocalDateTime _updateAt) {
+    public Task(int _id, String _description) {
         this.id = _id;
         this.description = _description;
-        this.status = _status;
+        this.status = Status.TODO;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }

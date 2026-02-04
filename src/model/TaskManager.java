@@ -12,7 +12,7 @@ public class TaskManager {
 
     public void addTask(String description) {
         taskMap.put(idCount, new Task(idCount, description));
-        idCount++;
+        System.out.println("Task added successfully (ID: " + idCount++ + ")");
     }
 
     public void updateTask(int id, String newDescription) {

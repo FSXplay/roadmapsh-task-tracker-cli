@@ -1,4 +1,4 @@
-import model.TaskManager;
+import service.TaskManager;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,10 +12,13 @@ public class Main {
 
         switch (command) {
             case "add":
-                taskManager.addTask(args[1]);
+                if (args.length < 2) {
+                    System.err.println("Error: Missing description");
+                } else {
+                    taskManager.addTask(args[1]);
+                }
                 break;
             case "update":
-
                 break;
             case "delete":
                 break;

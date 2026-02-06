@@ -1,0 +1,20 @@
+{
+  "1": {
+    "description": "Finish the Task Tracker CLI",
+    "status": "in-progress",
+    "createdAt": "2026-02-05T10:00:00",
+    "updatedAt": "2026-02-05T14:30:00"
+  },
+  "2": {
+    "description": "Read about StringBuilder memory efficiency",
+    "status": "done",
+    "createdAt": "2026-02-05T09:00:00",
+    "updatedAt": "2026-02-05T11:00:00"
+  },
+  "3": {
+    "description": "Setup project folder structure",
+    "status": "todo",
+    "createdAt": "2026-02-05T08:30:00",
+    "updatedAt": "2026-02-05T08:30:00"
+  }
+}

@@ -14,9 +14,14 @@ public class JSONParser {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                json.append(line);
+                json.append(line + "\n");
             }
         }
         return json.toString();
     }
+
+    // public static Map<Integer, Task> loadTasksFromJSON(String filePath) throws IOException {
+    //     String json = readJSONAsString(filePath);
+        
+    // }
 }

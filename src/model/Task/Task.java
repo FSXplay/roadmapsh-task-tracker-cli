@@ -2,6 +2,7 @@ package model.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 public class Task {
     public int id;
@@ -10,12 +11,18 @@ public class Task {
     public LocalDateTime createdAt;
     public LocalDateTime updatedAt;
 
-    public Task(int _id, String _description) {
+    public Task(
+        int _id, 
+        String _description, 
+        Optional<Status> _status, 
+        Optional<LocalDateTime> _createdAt, 
+        Optional<LocalDateTime> _updatedAt
+    ) {
         this.id = _id;
         this.description = _description;
-        this.status = Status.TODO;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+        this.status = _status.orElse(Status.TODO);
+        this.createdAt =  _createdAt.orElse(LocalDateTime.now());
+        this.updatedAt = _updatedAt.orElse(LocalDateTime.now());
     }
 
     public void updateTime() {
@@ -36,6 +43,7 @@ public class Task {
                 status,
                 description,
                 createdAt.format(fmt),
-                updatedAt.format(fmt));
+                updatedAt.format(fmt)
+        );
     }
 }

@@ -33,7 +33,15 @@ public class JSONParser {
         return json.toString();
     }
 
+    /**
+     * Break the whole JSON files into entries
+     * @param json
+     * @return Array of entries
+     */
     public static String[] splitJsonEntries(String json) {
+        // "Unbox" the JSON by removing the outmost brackets
+        json = json.substring(1, json.length() - 2).trim();
+        
         List<String> entries = new ArrayList<>();
         int bracketCount = 0, braceCount = 0;
         boolean inQuotes = false;

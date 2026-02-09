@@ -1,9 +1,9 @@
-package service.tests.testJSONParser;
+package service.tests;
 
 import service.JSONParser;
 
 public class TestJSONParser {
-    private static final String FILE_PATH = "src/service/tests/testJSONParser/testTasks.json";
+    private static final String FILE_PATH = "src/service/tests/testTasks.json";
 
     public static void main(String[] args) {
         // test_writeJSONFile();

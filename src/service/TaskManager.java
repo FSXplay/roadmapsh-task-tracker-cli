@@ -3,6 +3,7 @@ package service;
 import model.Task.Task;
 import model.Task.Status;
 import java.util.Optional;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,31 +57,38 @@ public class TaskManager {
 
     // Internally handle saving and loading the tasks
     private static Map<Integer, Task> loadTaskFromJSONFile(String filePath) {
-        String json = JSONParser.readJSONAsString(filePath);
-        json = json.substring(1, json.length() - 2).trim(); // "Unbox" the JSON by removing the outmost brackets
         Map<Integer, Task> taskMap = new HashMap<>();
+        try {
+            String json = JSONParser.readJSONAsString(filePath);
+            json = json.substring(1, json.length() - 2).trim(); // "Unbox" the JSON by removing the outmost brackets
 
-        if (json.isEmpty())
-            return taskMap;
+            if (json.isEmpty())
+                return taskMap;
 
-        String[] taskEntries = JSONParser.splitJsonEntries(json);
-        int maxId = 0;
-        
-        for (String entry : taskEntries) {
-            int colonIndex = entry.indexOf(":");
-            String idStr = entry.substring(0, colonIndex).replace("\"", "").trim();
-            int id = Integer.parseInt(idStr);
+            String[] taskEntries = JSONParser.splitJsonEntries(json);
+            int maxId = 0;
 
-            String taskData = entry.substring(colonIndex + 1).trim();
-            taskData = taskData.substring(1, taskData.length() - 1).trim();
+            for (String entry : taskEntries) {
+                int colonIndex = entry.indexOf(":");
+                String idStr = entry.substring(0, colonIndex).replace("\"", "").trim();
+                int id = Integer.parseInt(idStr);
 
-            Task task = parseTaskFields(id, taskData);
-            taskMap.put(id, task);
+                String taskData = entry.substring(colonIndex + 1).trim();
+                taskData = taskData.substring(1, taskData.length() - 1).trim();
 
-            if (id > maxId) maxId = id;
+                Task task = parseTaskFields(id, taskData);
+                taskMap.put(id, task);
+
+                if (id > maxId)
+                    maxId = id;
+            }
+
+            idCount = maxId + 1; // Ensure that there will be no duplicate IDs
+        } catch (IOException e) {
+            System.err.println("Error loading file: " + e.getMessage());
+            System.out.println("Creating an empty tasks.json file...");
+            JSONParser.writeJSONFile(filePath, "{}", false);
         }
-
-        idCount = maxId + 1; // Ensure that there will be no duplicate IDs
 
         return taskMap;
     }
@@ -110,6 +118,7 @@ public class TaskManager {
             }
         }
 
-        return new Task(id, description, Optional.ofNullable(status), Optional.ofNullable(createdAt), Optional.ofNullable(updatedAt));
+        return new Task(id, description, Optional.ofNullable(status), Optional.ofNullable(createdAt),
+                Optional.ofNullable(updatedAt));
     }
 }

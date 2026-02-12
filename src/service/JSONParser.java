@@ -20,15 +20,13 @@ public class JSONParser {
         }
     }
 
-    public static String readJSONAsString(String filePath) {
+    public static String readJSONAsString(String filePath) throws IOException {
         StringBuilder json = new StringBuilder();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 json.append(line + "\n");
             }
-        } catch (IOException e) {
-            System.err.println("Error reading file: " + e.getMessage());
         }
         return json.toString();
     }

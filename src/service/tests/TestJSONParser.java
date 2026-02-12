@@ -6,13 +6,18 @@ public class TestJSONParser {
     private static final String FILE_PATH = "src/service/tests/testTasks.json";
 
     public static void main(String[] args) {
+        // test_readJSONAsString();
         // test_writeJSONFile();
         test_splitJSONEntries();
     }
 
     private static void test_readJSONAsString() {
-        String json = JSONParser.readJSONAsString(FILE_PATH);
-        System.out.println("File Content:\n" + json);
+        try {
+            String json = JSONParser.readJSONAsString(FILE_PATH);
+            System.out.println("File Content:\n" + json);
+        } catch (Exception e) {
+            System.err.println("test_readJSONAsString failed!");
+        }
     }
 
     private static void test_writeJSONFile() {
@@ -21,9 +26,15 @@ public class TestJSONParser {
     }
 
     private static void test_splitJSONEntries() {
-        String rawJSON = JSONParser.readJSONAsString(FILE_PATH);
-        String[] jsonEntries = JSONParser.splitJsonEntries(rawJSON);
-        System.out.println("The first JSON entry:");
-        System.out.println(jsonEntries[1]);
+        try {
+            String rawJSON = JSONParser.readJSONAsString(FILE_PATH);
+            rawJSON = rawJSON.substring(1, rawJSON.length() - 2).trim();
+
+            String[] jsonEntries = JSONParser.splitJsonEntries(rawJSON);
+            System.out.println("The first JSON entry:");
+            System.out.println(jsonEntries[2]);
+        } catch (Exception e) {
+            System.err.println("test_splitJSONEntries failed!");
+        }
     }
 }

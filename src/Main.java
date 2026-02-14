@@ -27,6 +27,7 @@ public class Main {
             case "mark-done":
                 break;
             case "list":
+                taskManager.listAll();
                 break;
             case "list done":
                 break;

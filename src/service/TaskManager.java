@@ -11,11 +11,13 @@ import java.util.Map;
 public class TaskManager {
     private static final String FILE_NAME = "tasks.json";
     private static int idCount = 1;
-    private Map<Integer, Task> taskMap = loadTaskFromJSONFile(FILE_NAME);
+    private Map<Integer, Task> taskMap = loadTasksFromJSONFile(FILE_NAME);
 
     // Below are primary commands used by users
     public void addTask(String description) {
         taskMap.put(idCount, new Task(idCount, description, Optional.empty(), Optional.empty(), Optional.empty()));
+        saveTasksToJSONFile(FILE_NAME);
+        System.out.println(taskMap.toString());
         System.out.println("Task added successfully (ID: " + idCount++ + ")");
     }
 
@@ -56,7 +58,7 @@ public class TaskManager {
     }
 
     // Internally handle saving and loading the tasks
-    private static Map<Integer, Task> loadTaskFromJSONFile(String filePath) {
+    private Map<Integer, Task> loadTasksFromJSONFile(String filePath) {
         Map<Integer, Task> taskMap = new HashMap<>();
         try {
             String json = JSONParser.readJSONAsString(filePath);
@@ -91,6 +93,30 @@ public class TaskManager {
         }
 
         return taskMap;
+    }
+
+    private void saveTasksToJSONFile(String filePath) {
+        StringBuilder json = new StringBuilder();
+        json.append("{");
+
+        int count = 0;
+        for (Map.Entry<Integer, Task> entry : taskMap.entrySet()) {
+            Task task = entry.getValue();
+            json.append("\"").append(entry.getKey()).append("\": {");
+            json.append("\"description\": \"").append(task.description).append("\", ");
+            json.append("\"status\": \"")
+                    .append(task.status.toString().toLowerCase().replace("_", "-"))
+                    .append("\", ");
+            json.append("\"createdAt\": \"").append(task.createdAt).append("\", ");
+            json.append("\"updatedAt\": \"").append(task.updatedAt).append("\"");
+            json.append("}");
+
+            if (++count < taskMap.size()) json.append(",");
+        }
+
+        json.append("}");
+
+        JSONParser.writeJSONFile(filePath, json.toString(), true);
     }
 
     private static Task parseTaskFields(int id, String taskData) {

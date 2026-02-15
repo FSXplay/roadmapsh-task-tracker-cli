@@ -32,16 +32,9 @@ public class TaskManager {
         saveTasksToJSONFile(FILE_NAME);
     }
 
-    public void markInProgress(int id) {
+    public void markTask(int id, Status status) {
         Task selectedTask = taskMap.get(id);
-        selectedTask.status = Status.IN_PROGRESS;
-        selectedTask.updateTime();
-        saveTasksToJSONFile(FILE_NAME);
-    }
-
-    public void markDone(int id) {
-        Task selectedTask = taskMap.get(id);
-        selectedTask.status = Status.DONE;
+        selectedTask.status = status;
         selectedTask.updateTime();
         saveTasksToJSONFile(FILE_NAME);
     }

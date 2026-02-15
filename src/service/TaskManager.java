@@ -32,32 +32,17 @@ public class TaskManager {
         saveTasksToJSONFile(FILE_NAME);
     }
 
-    public void markInProgress(int id) {
+    public void markTask(int id, Status status) {
         Task selectedTask = taskMap.get(id);
-        selectedTask.status = Status.IN_PROGRESS;
+        selectedTask.status = status;
         selectedTask.updateTime();
         saveTasksToJSONFile(FILE_NAME);
     }
 
-    public void markDone(int id) {
-        Task selectedTask = taskMap.get(id);
-        selectedTask.status = Status.DONE;
-        selectedTask.updateTime();
-        saveTasksToJSONFile(FILE_NAME);
-    }
-
-    public void listAll() {
-        for (Task task : taskMap.values()) {
-            System.out.println(task);
-        }
-    }
-
-    public void listByStatus(Status status) {
-        for (Task task : taskMap.values()) {
-            if (task.status == status) {
-                System.out.println(task);
-            }
-        }
+    public void listTasks(Status status) {
+        taskMap.values().stream()
+                .filter(task -> status == null || task.status == status)
+                .forEach(System.out::println);
     }
 
     // Internally handle saving and loading the tasks
@@ -114,7 +99,8 @@ public class TaskManager {
             json.append("\"updatedAt\": \"").append(task.updatedAt).append("\"");
             json.append("}");
 
-            if (++count < taskMap.size()) json.append(",");
+            if (++count < taskMap.size())
+                json.append(",");
         }
 
         json.append("}");

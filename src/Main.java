@@ -24,7 +24,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        if (args.length == 0) {
+        if (args.length == 0 || args[0].equals("help")) {
             printUsage();
             return;
         }
@@ -35,7 +35,7 @@ public class Main {
         Command command = commands.get(commandName);
 
         if (command == null) {
-            System.out.println("Unknown command: " + commandName);
+            System.err.println("Error: Unknown command '" + commandName + "'");
             printUsage();
             return;
         }

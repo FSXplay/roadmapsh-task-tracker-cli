@@ -17,7 +17,6 @@ public class TaskManager {
     public void addTask(String description) {
         taskMap.put(idCount, new Task(idCount, description, Optional.empty(), Optional.empty(), Optional.empty()));
         saveTasksToJSONFile(FILE_NAME);
-        System.out.println(taskMap.toString());
         System.out.println("Task added successfully (ID: " + idCount++ + ")");
     }
 
@@ -25,22 +24,26 @@ public class TaskManager {
         Task selectedTask = taskMap.get(id);
         selectedTask.description = newDescription;
         selectedTask.updateTime();
+        saveTasksToJSONFile(FILE_NAME);
     }
 
     public void deleteTask(int id) {
         taskMap.remove(id);
+        saveTasksToJSONFile(FILE_NAME);
     }
 
     public void markInProgress(int id) {
         Task selectedTask = taskMap.get(id);
         selectedTask.status = Status.IN_PROGRESS;
         selectedTask.updateTime();
+        saveTasksToJSONFile(FILE_NAME);
     }
 
     public void markDone(int id) {
         Task selectedTask = taskMap.get(id);
         selectedTask.status = Status.DONE;
         selectedTask.updateTime();
+        saveTasksToJSONFile(FILE_NAME);
     }
 
     public void listAll() {

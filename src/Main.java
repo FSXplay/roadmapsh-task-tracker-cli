@@ -12,11 +12,13 @@ public class Main {
 
         switch (command) {
             case "add":
-                
-
+                if (args.length < 2) {
+                    System.err.println("Error: Missing description");
+                } else {
+                    taskManager.addTask(args[1]);
+                }
                 break;
             case "update":
-                
                 break;
             case "delete":
                 break;
@@ -25,6 +27,7 @@ public class Main {
             case "mark-done":
                 break;
             case "list":
+                taskManager.listAll();
                 break;
             case "list done":
                 break;

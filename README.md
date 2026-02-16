@@ -43,6 +43,3 @@ Each task contains:
 .\task-cli.bat mark-done 1
 .\task-cli.bat list done
 ```
-
-## License
-This project is for learning purposes and part of the roadmap.sh challenge.
